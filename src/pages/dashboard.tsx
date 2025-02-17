@@ -8,7 +8,8 @@ function MyCalendar() {
   const [events, setEvents] = useState([
     { title: "Meeting", start: new Date() },
   ]);
-
+  const x = new Date();
+  console.log(x);
   const handleDateClick = (arg) => {
     const title = prompt("Enter event title:");
     if (title) {
