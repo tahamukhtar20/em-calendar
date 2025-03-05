@@ -18,7 +18,7 @@ function Header() {
         </Link>
       </div>
       <div>
-        <button className="bg-white  mx-5 text-blue-300 py-2 px-4">
+        <button className="bg-white  mx-5 text-blue-300 py-2 px-4 rounded-md">
           Logout
         </button>
       </div>

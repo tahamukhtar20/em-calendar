@@ -5,6 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import Layout from "../components/layout";
+import EventDetail from "../components/eventDetail";
 function MyCalendar() {
   const [events, setEvents] = useState([
     { title: "Meeting", start: new Date() },
@@ -20,17 +21,27 @@ function MyCalendar() {
 
   return (
     <Layout>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        initialView="dayGridWeek"
-        events={events}
-        dateClick={handleDateClick}
-        headerToolbar={{
-          start: "title",
-          center: "",
-          end: "timeGridDay,timeGridWeek,dayGridMonth,listWeek prev,next",
-        }}
-      />
+      <div className="h-[400px]">
+        <FullCalendar
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin,
+            listPlugin,
+          ]}
+          height={"800px"}
+          initialView="dayGridWeek"
+          events={events}
+          dateClick={handleDateClick}
+          headerToolbar={{
+            start: "title",
+            center: "",
+            end: "timeGridDay,timeGridWeek,dayGridMonth,listWeek prev,next",
+          }}
+        />
+      </div>
+
+      <EventDetail />
     </Layout>
   );
 }
