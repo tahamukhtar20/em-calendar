@@ -41,7 +41,7 @@ function MyCalendar() {
         />
       </div>
 
-      <EventDetail />
+      <EventDetail date="25 march" />
     </Layout>
   );
 }
