@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 
-interface Tform {
-  title: string;
-  participents: string;
-  date: string;
-  time: string;
-}
+import { Tform } from "../util/types";
 
-function EventDetail(props: { date: string }) {
+function EventDetail(props: {
+  date: string;
+  close: () => void;
+  addEvent: React.Dispatch<React.SetStateAction<Tform[]>>;
+}) {
   const [form, setForm] = useState<Tform>({
     title: "",
     participents: "",
@@ -24,13 +23,24 @@ function EventDetail(props: { date: string }) {
     setForm((prev) => {
       return { ...prev, [name]: value };
     });
-    console.log(form);
+  };
+  const handleSubmit = () => {
+    props.addEvent((prev) => {
+      return [...prev, form];
+    });
   };
   return (
     <div className="absolute left-0 top-0 z-10 bg-gray-500  w-full h-full justify-center items-center flex bg-opacity-55 ">
       <div className="relative w-[800px] h-[600px] bg-white rounded-lg text-center  py-10 px-[60px]">
         <h1 className="text-3xl">Event Detail</h1>
-        <button className="absolute right-3 top-3">❌</button>
+        <button
+          className="absolute right-3 top-3"
+          onClick={() => {
+            props.close();
+          }}
+        >
+          ❌
+        </button>
         <div className="flex flex-col w-full   m-10">
           <label className="w-[300px] mt-3 text-left">Title:</label>
           <input
@@ -54,7 +64,10 @@ function EventDetail(props: { date: string }) {
             onChange={handleChange}
           />
           <div className="w-full justify-center items-center flex">
-            <button className="bg-gray-500  mx-5 text-white py-2 px-4 rounded-md mt-16 w-96">
+            <button
+              className="bg-gray-500  mx-5 text-white py-2 px-4 rounded-md mt-16 w-96"
+              onClick={handleSubmit}
+            >
               Add event
             </button>
           </div>

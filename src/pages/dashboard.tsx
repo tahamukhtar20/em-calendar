@@ -6,17 +6,17 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import Layout from "../components/layout";
 import EventDetail from "../components/eventDetail";
+import { Tform } from "../util/types";
+
 function MyCalendar() {
-  const [events, setEvents] = useState([
-    { title: "Meeting", start: new Date() },
+  const [openEventDetail, setOpenEventDetail] = useState(false);
+  const [events, setEvents] = useState<Tform[]>([
+    { title: "Meeting", participents: "", date: "24 March", time: "" },
   ]);
   const x = new Date();
   console.log(x);
   const handleDateClick = (arg) => {
-    const title = prompt("Enter event title:");
-    if (title) {
-      setEvents([...events, { title, start: arg.dateStr }]);
-    }
+    setOpenEventDetail(true);
   };
 
   return (
@@ -40,8 +40,15 @@ function MyCalendar() {
           }}
         />
       </div>
-
-      <EventDetail date="25 march" />
+      {openEventDetail ? (
+        <EventDetail
+          date="25 march"
+          close={() => setOpenEventDetail(false)}
+          addEvent={setEvents}
+        />
+      ) : (
+        ""
+      )}
     </Layout>
   );
 }
