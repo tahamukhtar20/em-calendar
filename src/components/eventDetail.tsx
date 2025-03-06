@@ -7,6 +7,17 @@ function EventDetail(props: {
   close: () => void;
   addEvent: React.Dispatch<React.SetStateAction<Tform[]>>;
 }) {
+  const [participents, setParticipents] = useState<string[]>([]);
+  useEffect(() => {
+    setParticipents([
+      "Adullah",
+      "Aleem",
+      "mubashir",
+      "musa",
+      "taha",
+      "shahviaz",
+    ]);
+  }, []);
   const [form, setForm] = useState<Tform>({
     title: "",
     participents: "",
@@ -23,6 +34,7 @@ function EventDetail(props: {
     setForm((prev) => {
       return { ...prev, [name]: value };
     });
+    console.log(form);
   };
   const handleSubmit = () => {
     props.addEvent((prev) => {
@@ -60,6 +72,7 @@ function EventDetail(props: {
           <input
             className="b-1 border-gray-700 outline-none border px-2 py-2 rounded-lg w-[300px] mt-3"
             name="time"
+            type="time"
             value={form.time}
             onChange={handleChange}
           />
