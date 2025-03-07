@@ -11,7 +11,12 @@ import { Tform } from "../util/types";
 function MyCalendar() {
   const [openEventDetail, setOpenEventDetail] = useState(false);
   const [events, setEvents] = useState<Tform[]>([
-    { title: "Meeting", participents: "", date: "24 March", time: "" },
+    {
+      title: "Meeting",
+      participents: ["abdullah"],
+      date: "24 March",
+      time: "",
+    },
   ]);
   const x = new Date();
   console.log(x);

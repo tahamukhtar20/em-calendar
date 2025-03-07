@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Trash2 } from "lucide-react";
 import { Tform } from "../util/types";
 
 function EventDetail(props: {
@@ -7,6 +7,7 @@ function EventDetail(props: {
   close: () => void;
   addEvent: React.Dispatch<React.SetStateAction<Tform[]>>;
 }) {
+  const [selectedValue, setSelectedValue] = useState("");
   const [participents, setParticipents] = useState<string[]>([]);
   useEffect(() => {
     setParticipents([
@@ -20,7 +21,7 @@ function EventDetail(props: {
   }, []);
   const [form, setForm] = useState<Tform>({
     title: "",
-    participents: "",
+    participents: [],
     date: "",
     time: "",
   });
@@ -41,6 +42,24 @@ function EventDetail(props: {
       return [...prev, form];
     });
   };
+  const handleAddParticipant = () => {
+    if (selectedValue && !form.participents.includes(selectedValue)) {
+      setForm((prev) => {
+        return { ...prev, participents: [...prev.participents, selectedValue] };
+      });
+    }
+
+    setSelectedValue("");
+  };
+  const removeParticipant = (item: string) => {
+    setForm((prev) => {
+      return {
+        ...prev,
+        participents: prev.participents.filter((i) => i !== item),
+      };
+    });
+  };
+
   return (
     <div className="absolute left-0 top-0 z-10 bg-gray-500  w-full h-full justify-center items-center flex bg-opacity-55 ">
       <div className="relative w-[800px] h-[600px] bg-white rounded-lg text-center  py-10 px-[60px]">
@@ -62,12 +81,50 @@ function EventDetail(props: {
             onChange={handleChange}
           />
           <label className="w-[300px] mt-3 text-left">Participents:</label>
-          <input
-            className="b-1 border-gray-700 outline-none border px-2 py-2 rounded-lg w-[300px] mt-3"
-            name="participents"
-            value={form.participents}
-            onChange={handleChange}
-          />
+          <div className="flex  items-center">
+            <select
+              className="b-1 border-gray-700 outline-none border px-2  py-2 rounded-lg w-[300px] mt-3"
+              value={selectedValue}
+              onChange={(e) => {
+                setSelectedValue(e.target.value);
+              }}
+            >
+              <option value="">Select Participent</option>
+              {participents.map((item) => {
+                return <option value={item}>{item}</option>;
+              })}
+            </select>
+            <button
+              onClick={handleAddParticipant}
+              className="bg-gray-500  mx-5 mt-3 text-white  h-8 rounded-md  w-40"
+            >
+              Add Participant
+            </button>
+          </div>
+
+          <div className="flex">
+            {form.participents.map((item) => {
+              return (
+                <div
+                  className="flex ml-3 px-2 bg-gray-200 rounded-md items-center mt-3
+              "
+                >
+                  {item}
+                  <button
+                    onClick={() => {
+                      removeParticipant(item);
+                    }}
+                  >
+                    <Trash2
+                      size={16}
+                      className="ml-3 hover:scale-110 transition-transform duration-100"
+                    />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
           <label className="w-[300px] mt-3 text-left">Time:</label>
           <input
             className="b-1 border-gray-700 outline-none border px-2 py-2 rounded-lg w-[300px] mt-3"
