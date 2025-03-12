@@ -41,6 +41,7 @@ function EventDetail(props: {
     props.addEvent((prev) => {
       return [...prev, form];
     });
+    props.close();
   };
   const handleAddParticipant = () => {
     if (selectedValue && !form.participents.includes(selectedValue)) {
