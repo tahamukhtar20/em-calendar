@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
-import { Tform } from "../util/types";
+import { TempForm, Tform } from "../util/types";
 
 function EventDetail(props: {
   date: string;
@@ -19,7 +19,7 @@ function EventDetail(props: {
       "shahviaz",
     ]);
   }, []);
-  const [form, setForm] = useState<Tform>({
+  const [form, setForm] = useState<TempForm>({
     title: "",
     participents: [],
     date: "",
@@ -38,8 +38,17 @@ function EventDetail(props: {
     console.log(form);
   };
   const handleSubmit = () => {
+    const dateTimeStr = `${form.date} ${form.time}`;
+
+    // Convert to Date object
+    const dateObj = new Date(dateTimeStr);
+    const temp: Tform = {
+      title: form.title,
+      participents: form.participents,
+      date: dateObj,
+    };
     props.addEvent((prev) => {
-      return [...prev, form];
+      return [...prev, temp];
     });
     props.close();
   };

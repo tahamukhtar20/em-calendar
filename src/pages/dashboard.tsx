@@ -14,12 +14,11 @@ function MyCalendar() {
     {
       title: "Meeting",
       participents: ["abdullah"],
-      date: "24 March",
-      time: "",
+      date: new Date(),
     },
   ]);
   const x = new Date();
-  console.log(x);
+  console.log(events);
   const handleDateClick = (arg) => {
     setOpenEventDetail(true);
   };
@@ -47,7 +46,7 @@ function MyCalendar() {
       </div>
       {openEventDetail ? (
         <EventDetail
-          date="25 march"
+          date="25 march 2024"
           close={() => setOpenEventDetail(false)}
           addEvent={setEvents}
         />
