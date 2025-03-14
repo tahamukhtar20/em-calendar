@@ -40,8 +40,8 @@ function EventDetail(props: {
   const handleSubmit = () => {
     const dateTimeStr = `${form.date} ${form.time}`;
 
-    // Convert to Date object
-    const dateObj = new Date(dateTimeStr);
+    const formattedString = dateTimeStr.replace(" ", "T"); // Convert to "2025-03-13T12:24"
+    const dateObj = new Date(formattedString);
     const temp: Tform = {
       title: form.title,
       participents: form.participents,

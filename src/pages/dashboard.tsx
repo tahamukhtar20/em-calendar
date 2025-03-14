@@ -10,6 +10,7 @@ import { Tform } from "../util/types";
 
 function MyCalendar() {
   const [openEventDetail, setOpenEventDetail] = useState(false);
+  const [clickedDate, setClickedDate] = useState("");
   const [events, setEvents] = useState<Tform[]>([
     {
       title: "Meeting",
@@ -20,6 +21,8 @@ function MyCalendar() {
   const x = new Date();
   console.log(events);
   const handleDateClick = (arg) => {
+    console.log(arg.dateStr);
+    setClickedDate(arg.dateStr);
     setOpenEventDetail(true);
   };
 
@@ -46,7 +49,7 @@ function MyCalendar() {
       </div>
       {openEventDetail ? (
         <EventDetail
-          date="25 march 2025"
+          date={clickedDate}
           close={() => setOpenEventDetail(false)}
           addEvent={setEvents}
         />
