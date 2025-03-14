@@ -46,7 +46,7 @@ function MyCalendar() {
       </div>
       {openEventDetail ? (
         <EventDetail
-          date="25 march 2024"
+          date="25 march 2025"
           close={() => setOpenEventDetail(false)}
           addEvent={setEvents}
         />
