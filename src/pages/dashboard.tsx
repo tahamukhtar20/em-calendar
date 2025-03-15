@@ -7,10 +7,13 @@ import listPlugin from "@fullcalendar/list";
 import Layout from "../components/layout";
 import EventDetail from "../components/eventDetail";
 import { Tform } from "../util/types";
+import EventPopup from "../components/eventPopup";
 
 function MyCalendar() {
   const [openEventDetail, setOpenEventDetail] = useState(false);
   const [clickedDate, setClickedDate] = useState("");
+  const [clickedEvent, setClickedEvent] = useState<object>();
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [events, setEvents] = useState<Tform[]>([
     {
       title: "Meeting",
@@ -27,6 +30,8 @@ function MyCalendar() {
   };
   const handleEventClick = (eventInfo) => {
     console.log(eventInfo);
+    setClickedEvent(eventInfo);
+    setOpenPopup(true);
   };
   return (
     <Layout>
@@ -55,6 +60,16 @@ function MyCalendar() {
           date={clickedDate}
           close={() => setOpenEventDetail(false)}
           addEvent={setEvents}
+        />
+      ) : (
+        ""
+      )}
+      {openPopup ? (
+        <EventPopup
+          info={clickedEvent}
+          close={() => {
+            setOpenPopup(false);
+          }}
         />
       ) : (
         ""
