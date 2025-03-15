@@ -25,7 +25,9 @@ function MyCalendar() {
     setClickedDate(arg.dateStr);
     setOpenEventDetail(true);
   };
-
+  const handleEventClick = (eventInfo) => {
+    console.log(eventInfo);
+  };
   return (
     <Layout>
       <div className="h-[400px]">
@@ -39,6 +41,7 @@ function MyCalendar() {
           height={"800px"}
           initialView="dayGridWeek"
           events={events}
+          eventClick={handleEventClick}
           dateClick={handleDateClick}
           headerToolbar={{
             start: "title",
