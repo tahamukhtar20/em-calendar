@@ -24,6 +24,7 @@ function EventDetail(props: {
     participents: [],
     date: "",
     time: "",
+    endTime: "",
   });
   useEffect(() => {
     setForm((prev) => {
@@ -39,13 +40,16 @@ function EventDetail(props: {
   };
   const handleSubmit = () => {
     const dateTimeStr = `${form.date} ${form.time}`;
-
+    const endTimeStr = new Date(
+      `${form.date} ${form.endTime}`.replace(" ", "T")
+    );
     const formattedString = dateTimeStr.replace(" ", "T"); // Convert to "2025-03-13T12:24"
     const dateObj = new Date(formattedString);
     const temp: Tform = {
       title: form.title,
       participents: form.participents,
       date: dateObj,
+      end: endTimeStr,
     };
     props.addEvent((prev) => {
       return [...prev, temp];
@@ -141,6 +145,13 @@ function EventDetail(props: {
             name="time"
             type="time"
             value={form.time}
+            onChange={handleChange}
+          />
+          <input
+            className="b-1 border-gray-700 outline-none border px-2 py-2 rounded-lg w-[300px] mt-3"
+            name="endTime"
+            type="time"
+            value={form.endTime}
             onChange={handleChange}
           />
           <div className="w-full justify-center items-center flex">

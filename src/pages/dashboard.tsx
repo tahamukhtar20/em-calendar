@@ -19,6 +19,7 @@ function MyCalendar() {
       title: "Meeting",
       participents: ["abdullah"],
       date: new Date(),
+      end: new Date(),
     },
   ]);
   const x = new Date();
